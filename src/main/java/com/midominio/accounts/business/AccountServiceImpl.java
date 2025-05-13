@@ -35,7 +35,8 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public List<AccountResponse> getByCustomerNumber(String customerNumber) {
 		return repo.findByAccountNumber(customerNumber)
-				.stream().filter(c -> c.getStatus().equals("ACT"))
+				.stream()
+//				.filter(c -> c.getStatus().equals("ACT"))
 				.map(c -> {
 					AccountResponse r = new AccountResponse();
 					r.setProductNumber(c.getProductNumber());
@@ -46,7 +47,6 @@ public class AccountServiceImpl implements AccountService {
 					r.setProductNumber(c.getProductNumber());
 					
 					List<Card> crds = client.getCardsByAccountNumber(c.getAccountNumber());
-					System.out.print(crds);
 					r.setCards(crds);
 					
 					return r;
