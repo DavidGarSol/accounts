@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.midominio.accounts.model.Account;
+import com.midominio.accounts.model.AccountResponse;
 import com.midominio.accounts.service.AccountService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -22,6 +24,11 @@ public class AccountController {
     @GetMapping("/accounts")
     public List<Account> getAccounts() {
         return service.getAccounts();
+    }
+    
+    @GetMapping("/accounts/{accountNumber}")
+    public List<AccountResponse> getByAccountNumber(@PathVariable String accountNumber) {
+    	return service.getByCustomerNumber(accountNumber);
     }
 
 }
