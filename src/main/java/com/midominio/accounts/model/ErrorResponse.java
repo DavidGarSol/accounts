@@ -3,7 +3,6 @@ package com.midominio.accounts.model;
 public class ErrorResponse {
 	
 	private int code;
-	private String message;
 	private ErrorType type;
 	private String details;
 	private String location;
@@ -15,13 +14,6 @@ public class ErrorResponse {
 	public void setCode(int code) {
 		this.code = code;
 	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
 	public ErrorType getType() {
 		return type;
 	}

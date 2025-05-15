@@ -1,4 +1,4 @@
-package com.midominio.accounts.config;
+package com.midominio.accounts.component;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,20 +12,23 @@ import com.midominio.accounts.model.ErrorType;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
-public class ErrorAdvice {
+public class ControllerAdvice {
 	
 	@ExceptionHandler(exception = UnauthorizedException.class)
 	@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
 	public ErrorResponse handlerUnauthorizedException(
 			HttpServletRequest req, UnauthorizedException ex) {
-		ErrorResponse error = new ErrorResponse();
-		error.setCode(HttpStatus.UNAUTHORIZED.value());
-		error.setDetails(ex.getMessage());
-		error.setLocation(req.getRequestURI());
-		error.setMessage(ex.getStackTrace().toString());
-		error.setType(ErrorType.ERROR);
+		return buildErrorResponse(HttpStatus.UNAUTHORIZED.value(),req, ex, ErrorType.ERROR);
+	}
+	
+	private ErrorResponse buildErrorResponse(int code, HttpServletRequest req, Exception ex, ErrorType errorType) {
+		ErrorResponse response = new ErrorResponse();
+		response.setCode(code);
+		response.setLocation(req.getRequestURI());
+		response.setDetails(ex.getMessage());
+		response.setType(errorType);
 		
-		return error;
+		return response;
 	}
 
 }

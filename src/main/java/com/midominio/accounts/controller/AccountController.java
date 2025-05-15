@@ -40,12 +40,7 @@ public class AccountController {
     		@RequestHeader(name = "Authorization") String authorization,
     		@PathVariable String accountNumber) throws Exception {
     	
-    	System.out.print("Authorization" + authorization);
-    	
     	String auth = redis.opsForValue().get(authorization);
-    	
-    	System.out.print("redis response" + auth);
-    	
     	if (Objects.isNull(auth)) throw new UnauthorizedException("NO SESSION");
     	
     	return service.getByCustomerNumber(accountNumber);
