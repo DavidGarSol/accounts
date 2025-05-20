@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.midominio.accounts.model.Card;
 
 @FeignClient(
-		name = "cards2",
+		name = "${client.cards.name}",
 		url = "${client.cards.url}",
-		path = "${client.cards.path}")
+		path = "${client.cards.path}"
+//		, configuration = MyConfigurationClient.class
+		)
 public interface CardClient {
 	
 	@GetMapping("/cards/{accountNumber}")
