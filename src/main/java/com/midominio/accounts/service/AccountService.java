@@ -8,8 +8,6 @@ import com.midominio.accounts.model.AccountResponse;
 
 public interface AccountService {
 
-    List<AccountResponse> getAccounts();
-    Account getAccount(AccountId accountId);
-    List<AccountResponse> getByCustomerNumber(String customerNumber);
+    List<AccountResponse> getByCustomerNumber(String token);
 
 }

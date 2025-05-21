@@ -3,6 +3,8 @@ package com.midominio.accounts.controller;
 import java.util.List;
 import java.util.Objects;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -22,28 +24,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("/api")
 public class AccountController {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
 
     @Autowired
     private AccountService service;
     
-    @Autowired
-    @Qualifier("redisCacheTest")
-    private RedisTemplate<String, String> redis;
-
     @GetMapping("/accounts")
-    public List<AccountResponse> getAccounts() {
-        return service.getAccounts();
-    }
-    
-    @GetMapping("/accounts/{accountNumber}")
     public List<AccountResponse> getByAccountNumber(
-    		@RequestHeader(name = "Authorization") String authorization,
-    		@PathVariable String accountNumber) throws Exception {
-    	
-//    	String auth = redis.opsForValue().get(authorization);
-//    	if (Objects.isNull(auth)) throw new UnauthorizedException("NO SESSION");
-    	
-    	return service.getByCustomerNumber(accountNumber);
+    		@RequestHeader(name = "Authorization") String authorization) {
+    	LOG.debug("Accounts Request");
+    	LOG.debug("Authorization toke: " + authorization);
+    	return service.getByCustomerNumber(authorization);
     }
 
 }
