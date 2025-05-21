@@ -8,7 +8,7 @@ import com.midominio.accounts.model.AccountResponse;
 
 public interface AccountService {
 
-    List<Account> getAccounts();
+    List<AccountResponse> getAccounts();
     Account getAccount(AccountId accountId);
     List<AccountResponse> getByCustomerNumber(String customerNumber);
 

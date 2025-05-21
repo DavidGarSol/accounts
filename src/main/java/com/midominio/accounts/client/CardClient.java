@@ -10,9 +10,8 @@ import com.midominio.accounts.model.Card;
 
 @FeignClient(
 		name = "${client.cards.name}",
-		url = "${client.cards.url}",
-		path = "${client.cards.path}"
-//		, configuration = MyConfigurationClient.class
+		path = "${client.cards.path}",
+		configuration = MyConfigurationClient.class
 		)
 public interface CardClient {
 	

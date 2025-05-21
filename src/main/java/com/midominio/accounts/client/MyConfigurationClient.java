@@ -21,9 +21,9 @@ public class MyConfigurationClient {
 //	}
 	
 
-//	@Bean
-//	public ErrorDecoder error() {
-//		return new CustomErrorDecoder();
-//	}
+	@Bean
+	public ErrorDecoder error() {
+		return new CustomErrorDecoder();
+	}
 
 }

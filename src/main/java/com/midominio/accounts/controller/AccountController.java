@@ -31,7 +31,7 @@ public class AccountController {
     private RedisTemplate<String, String> redis;
 
     @GetMapping("/accounts")
-    public List<Account> getAccounts() {
+    public List<AccountResponse> getAccounts() {
         return service.getAccounts();
     }
     

@@ -11,6 +11,7 @@ import com.midominio.accounts.model.AccountId;
 import com.midominio.accounts.model.AccountResponse;
 import com.midominio.accounts.model.Card;
 import com.midominio.accounts.repository.AccountRepository;
+import com.midominio.accounts.rest.CardRestClient;
 import com.midominio.accounts.service.AccountService;
 
 @Service
@@ -20,11 +21,26 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository repo;
     
     @Autowired
-    private CardClient client;
+    private CardClient feign;
+    
+    @Autowired
+    private CardRestClient rest;
 
     @Override
-    public List<Account> getAccounts() {
-        return repo.findAll();
+    public List<AccountResponse> getAccounts() {
+        return repo.findAll().stream().map(c -> {
+        	AccountResponse r = new AccountResponse();
+        	r.setAccountNumber(c.getAccountNumber());
+        	r.setBalance(c.getBalance());
+        	r.setCustomerNumber(c.getCustomerNumber());
+        	r.setProductName(c.getProductName());
+        	r.setProductNumber(c.getProductNumber());
+        	
+        	List<Card> crds = feign.getCardsByAccountNumber(c.getAccountNumber());
+        	r.setCards(crds);
+        	
+        	return r;
+        }).toList();
     }
 
     @Override
@@ -46,7 +62,7 @@ public class AccountServiceImpl implements AccountService {
 					r.setProductName(c.getProductName());
 					r.setProductNumber(c.getProductNumber());
 					
-					List<Card> crds = client.getCardsByAccountNumber(c.getAccountNumber());
+					List<Card> crds = rest.getCardsByAccountNumber(c.getAccountNumber());
 					r.setCards(crds);
 					
 					return r;
