@@ -64,6 +64,10 @@ public class Account {
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
-
-
+	@Override
+	public String toString() {
+		return "Account [customerNumber=" + customerNumber + ", accountNumber=" + accountNumber + ", productNumber="
+		        + productNumber + ", productName=" + productName + ", status=" + status + ", balance=" + balance
+		        + ", creationDate=" + creationDate + "]";
+	}
 }

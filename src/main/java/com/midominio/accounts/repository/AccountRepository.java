@@ -10,4 +10,5 @@ import com.midominio.accounts.model.AccountId;
 public interface AccountRepository extends JpaRepository<Account, AccountId> {
 
 	List<Account> findByAccountNumber(String accountNumber);
+	Account findByCustomerNumber(String customerNumber);
 }

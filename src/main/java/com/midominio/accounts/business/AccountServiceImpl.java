@@ -40,7 +40,10 @@ public class AccountServiceImpl implements AccountService {
 		String customerNumber = session.getValueByKey(token);
 		LOG.debug("Customer: " + customerNumber);
 		
-		return repo.findByAccountNumber(customerNumber)
+		Account account = repo.findByCustomerNumber(customerNumber);
+		LOG.debug("Account: " + account);
+		
+		return repo.findByAccountNumber(account.getAccountNumber())
 				.stream()
 //				.filter(c -> c.getStatus().equals("ACT"))
 				.map(c -> {
