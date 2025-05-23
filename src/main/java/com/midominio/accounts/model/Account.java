@@ -15,7 +15,7 @@ public class Account {
     @Id
     private String customerNumber;
     @Id
-    private String customerAccount;
+    private String accountNumber;
     private Integer productNumber;
     private String productName;
     private String status;
@@ -28,13 +28,13 @@ public class Account {
     public void setCustomerNumber(String customerNumber) {
         this.customerNumber = customerNumber;
     }
-    public String getCustomerAccount() {
-        return customerAccount;
-    }
-    public void setCustomerAccount(String customerAccount) {
-        this.customerAccount = customerAccount;
-    }
-    public Integer getProductNumber() {
+    public String getAccountNumber() {
+		return accountNumber;
+	}
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+	public Integer getProductNumber() {
         return productNumber;
     }
     public void setProductNumber(Integer productNumber) {
@@ -64,6 +64,10 @@ public class Account {
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
-
-
+	@Override
+	public String toString() {
+		return "Account [customerNumber=" + customerNumber + ", accountNumber=" + accountNumber + ", productNumber="
+		        + productNumber + ", productName=" + productName + ", status=" + status + ", balance=" + balance
+		        + ", creationDate=" + creationDate + "]";
+	}
 }
