@@ -10,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.midominio.accounts.model.Card;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 @Component
 public class CardRestClient {
 	
@@ -17,6 +19,7 @@ public class CardRestClient {
 	@LoadBalanced
 	private RestTemplate rest;
 	
+	@CircuitBreaker(name = "cards", fallbackMethod = "responseCardsFallback")
 	public List<Card> getCardsByAccountNumber(String accountNumber) {
 		ResponseEntity<List> response =
 				rest.getForEntity("http://cards/api/cards/{accountNumber}", List.class, accountNumber);
@@ -24,6 +27,10 @@ public class CardRestClient {
 		List<Card> cards = response.getBody();
 		
 		return cards;
+	}
+	
+	public List<Card> responseCardsFallback(Exception ex) {
+		return null;
 	}
 
 }
